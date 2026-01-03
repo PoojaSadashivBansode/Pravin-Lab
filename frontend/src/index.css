@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* ===============================
+   THEME TOKENS
+================================ */
+@theme {
+  --color-brand-red: #D32F2F;
+  --color-brand-blue: #0093DD;
+  --color-brand-blue-hover: #37BCFF;
+
+  --color-text-primary: #111111;
+  --color-text-secondary: #262626;
+  --color-text-muted: #999999;
+
+  --color-border-light: #D4D4D4;
+  --color-bg-main: #FFFFFF;
+}
+
+/* ===============================
+   BASE STYLES
+================================ */
+@layer base {
+  html {
+    font-family: "Montserrat", sans-serif;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-main);
+  }
+}
+
+/* ===============================
+   COMPONENT CLASSES
+================================ */
+@layer components {
+  .text-brand-red {
+    color: var(--color-brand-red);
+  }
+
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .border-light {
+    border-color: var(--color-border-light);
+  }
+
+  .btn-primary {
+    @apply px-8 py-2.5 rounded-md text-sm font-semibold text-white
+           bg-brand-blue
+           cursor-pointer
+           transition-all duration-200
+           hover:bg-brand-blue-hover
+           hover:-translate-y-0.5
+           hover:shadow-md
+           active:scale-95;
+  }
+}
