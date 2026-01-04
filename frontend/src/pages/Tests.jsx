@@ -44,7 +44,7 @@ const Tests = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#FBFBFB] py-16">
+    <div className="min-h-screen bg-[#FBFBFB] pt-4 lg:pt-6 pb-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* Page Header + Search Bar */}

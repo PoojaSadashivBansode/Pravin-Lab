@@ -6,7 +6,7 @@ const Contact = () => {
     <div className="min-h-screen bg-[#FBFBFB] font-sans text-text-primary selection:bg-brand-blue/10">
       
       {/* 1. LIGHTWEIGHT HEADER */}
-      <section className="py-20">
+      <section className="pt-4 lg:pt-6 pb-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
             <ShieldCheck size={14} /> Secure & Confidential

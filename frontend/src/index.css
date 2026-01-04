@@ -27,6 +27,13 @@
   }
 }
 
+@layer base {
+  input::placeholder {
+    @apply text-gray-400;
+  }
+}
+
+
 /* ===============================
    COMPONENT CLASSES
 ================================ */

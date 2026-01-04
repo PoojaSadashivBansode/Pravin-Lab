@@ -18,7 +18,7 @@ const About = () => {
   return (
     <div className="font-sans text-text-primary">
       {/* 1. HERO SECTION - Matching Home Page Header Style */}
-      <section className="bg-[#FBFBFB] py-16 lg:py-24">
+      <section className="bg-[#FBFBFB] pt-4 lg:pt-6 pb-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-1 space-y-6">
             <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
@@ -44,12 +44,14 @@ const About = () => {
               ))}
             </div>
           </div>
-          <div className="flex-1 relative">
-            <div className="absolute -inset-4 bg-brand-blue/5 rounded-full blur-3xl"></div>
+          <div className="flex-1 relative w-full">
+            {/* Expanded glow to match the wider image */}
+            <div className="absolute -inset-10 bg-brand-blue/5 rounded-full blur-[100px]"></div>
+            
             <img 
               src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop" 
               alt="Lab Infrastructure" 
-              className="relative w-full h-auto rounded-[40px] shadow-2xl border-8 border-white" 
+              className="relative w-full h-75 lg:h-112.5 rounded-[40px] shadow-2xl border-8 border-white object-cover object-center" 
             />
           </div>
         </div>
@@ -98,7 +100,7 @@ const About = () => {
       </section>
 
       {/* 3. STAFF SECTION - Clean & Professional */}
-      <section className="py-20 bg-[#F3F4F6]">
+      <section className="py-20 bg-[#FBFBFB]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-16">
             <h2 className="text-3xl font-extrabold mb-3">Our Expert Team</h2>
@@ -126,7 +128,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* 4. CTA BANNER - Matching Packages Page Style */}
+      {/* 4. CTA BANNER - Matching Packages Page Style 
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto bg-brand-blue rounded-[40px] p-10 md:p-16 text-white text-center shadow-2xl shadow-brand-blue/20">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Experience Better Healthcare</h2>
@@ -144,6 +146,7 @@ const About = () => {
           </div>
         </div>
       </section>
+      */}
     </div>
   );
 };
