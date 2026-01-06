@@ -1,23 +1,37 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom"; 
-import { Menu, X, User, FileText, Calendar, LogOut, ChevronDown, LogIn } from "lucide-react"; 
+import { Menu, X, User, FileText, Calendar, LogOut, ChevronDown, LogIn, Globe } from "lucide-react"; 
+import { useTranslation } from 'react-i18next';
 import logo from "../assets/Logo1.png";
-import AuthModal from "./AuthModal"; // Import the modal here
+import AuthModal from "./AuthModal"; 
 
 const Navbar = () => {
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [authMode, setAuthMode] = useState(null); // Controls the pop-up (login, register, or null)
+  const [authMode, setAuthMode] = useState(null); 
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   const location = useLocation(); 
+
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'en' ? 'mr' : 'en';
+    
+    // 1. Updates the button text label
+    i18n.changeLanguage(nextLang);
+
+    // 2. Triggers the automatic page translation
+    if (window.changeLanguageAuto) {
+      window.changeLanguageAuto(nextLang);
+    }
+  };
 
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Tests", path: "/tests" },
     { name: "Packages", path: "/packages" },
     { name: "About Us", path: "/about" },
-    { name: "Contact Us", path: "/contact" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -32,8 +46,9 @@ const Navbar = () => {
             </Link>
 
             {/* RIGHT: Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-10">
-              <div className="flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6 lg:gap-8">
+              {/* 1. Nav Links */}
+              <div className="flex items-center gap-6 lg:gap-8 border-r border-gray-100 pr-6 lg:pr-8">
                 {navLinks.map((link) => {
                   const isActive = location.pathname === link.path;
                   return (
@@ -52,7 +67,7 @@ const Navbar = () => {
                 })}
               </div>
 
-              {/* --- PROFILE DROPDOWN / LOGIN TRIGGER --- */}
+              {/* 2. PROFILE DROPDOWN / LOGIN TRIGGER */}
               <div className="relative">
                 <button 
                   onClick={() => isLoggedIn ? setIsProfileOpen(!isProfileOpen) : setAuthMode('login')}
@@ -91,12 +106,31 @@ const Navbar = () => {
                   </>
                 )}
               </div>
+
+              {/* 3. LANGUAGE TOGGLE BUTTON */}
+              <button 
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 px-3 py-1.5 border-2 border-brand-blue/10 rounded-full hover:bg-brand-blue/5 hover:border-brand-blue/30 transition-all text-gray-700 bg-white"
+              >
+                <Globe size={16} className="text-brand-blue" />
+                <span className="text-[13px] font-extrabold text-brand-blue">
+                  {i18n.language === 'en' ? 'मराठी' : 'English'}
+                </span>
+              </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button className="md:hidden text-text-primary" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+            {/* Mobile Menu Button Section */}
+            <div className="flex items-center gap-4 md:hidden">
+              <button 
+                onClick={toggleLanguage}
+                className="px-2 py-1 border border-gray-200 rounded text-brand-blue font-bold text-xs"
+              >
+                {i18n.language === 'en' ? 'मराठी' : 'EN'}
+              </button>
+              <button className="text-text-primary" onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -117,7 +151,7 @@ const Navbar = () => {
               {isLoggedIn ? (
                 <>
                   <Link to="/reports" className="block text-lg font-semibold text-gray-600 mb-4" onClick={() => setIsOpen(false)}>My Reports</Link>
-                  <button onClick={() => setIsLoggedIn(false)} className="text-lg font-bold text-brand-red">Logout</button>
+                  <button onClick={() => {setIsLoggedIn(false); setIsOpen(false);}} className="text-lg font-bold text-brand-red">Logout</button>
                 </>
               ) : (
                 <button onClick={() => {setAuthMode('login'); setIsOpen(false);}} className="text-lg font-bold text-brand-blue">Login / Sign Up</button>
@@ -127,7 +161,6 @@ const Navbar = () => {
         )}
       </nav>
 
-      {/* Auth Modal Integration */}
       <AuthModal 
         mode={authMode} 
         onClose={() => setAuthMode(null)} 

@@ -17,7 +17,7 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen bg-[#FBFBFB] font-sans">
         <Navbar />
-        <main className="flex-grow pt-0">
+        <main className="grow pt-0">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tests" element={<Tests />} />

@@ -1,133 +1,232 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, User } from 'lucide-react';
+import { MessageCircle, X, Send, User, ChevronRight, Phone, ExternalLink, MoreHorizontal } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import logo from "../assets/Logo1.png"; 
 
 const Chatbot = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [showNote, setShowNote] = useState(true); 
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, text: "Hello! Welcome to Pravin Lab. How can I assist you with your health tests today?", sender: 'bot' }
+    { id: 1, text: "Welcome to Pravin Lab. I am your health assistant. How can I help you today?", sender: 'bot' }
   ]);
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
 
-  // Auto-scroll logic
+  // --- MOVEABLE LOGIC STATE ---
+  const [position, setPosition] = useState({ x: window.innerWidth - 80, y: window.innerHeight - 80 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartPos = useRef({ x: 0, y: 0 });
+  const hasMoved = useRef(false);
+
+  // Advanced Menu Structure
+  const menuOptions = [
+    { label: "Book Home Visit", value: "home_visit", action: "link", path: "/bookings" },
+    { label: "Check Report Status", value: "reports", action: "text", reply: "Please keep your Lab ID ready. You can check your reports in the 'My Reports' section after logging in." },
+    { label: "Popular Test Packages", value: "packages", action: "text", reply: "We offer Full Body Checkups starting at ₹999. Would you like to view our packages?" },
+    { label: "Contact a Doctor", value: "whatsapp", action: "whatsapp" }
+  ];
+
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
     }
-  }, [messages, isOpen]);
+  }, [messages, isTyping]);
 
-  // Logic to make the note reappear after 60 seconds if it was manually hidden
+  // --- DRAG EVENT HANDLERS ---
+  const handleMouseDown = (e) => {
+    if (isOpen) return; // Disable dragging while open
+    setIsDragging(true);
+    hasMoved.current = false;
+    dragStartPos.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    };
+  };
+
+  const handleTouchStart = (e) => {
+    if (isOpen) return;
+    setIsDragging(true);
+    hasMoved.current = false;
+    dragStartPos.current = {
+      x: e.touches[0].clientX - position.x,
+      y: e.touches[0].clientY - position.y
+    };
+  };
+
   useEffect(() => {
-    if (!showNote && !isOpen) {
-      const timer = setTimeout(() => {
-        setShowNote(true);
-      }, 60000); // 1 minute
-      return () => clearTimeout(timer);
+    const handleMove = (e) => {
+      if (!isDragging) return;
+      hasMoved.current = true;
+      
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      // Boundaries: 20px padding from edges
+      const newX = Math.min(Math.max(20, clientX - dragStartPos.current.x), window.innerWidth - 80);
+      const newY = Math.min(Math.max(20, clientY - dragStartPos.current.y), window.innerHeight - 80);
+      
+      setPosition({ x: newX, y: newY });
+    };
+
+    const handleEnd = () => setIsDragging(false);
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleEnd);
+      window.addEventListener('touchmove', handleMove);
+      window.addEventListener('touchend', handleEnd);
     }
-  }, [showNote, isOpen]);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleEnd);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('touchend', handleEnd);
+    };
+  }, [isDragging]);
+
+  const toggleChat = () => {
+    if (!hasMoved.current) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const handleAction = (option) => {
+    if (option.action === 'whatsapp') {
+      window.open("https://wa.me/919876543210?text=I%20need%20help%20with%20my%20lab%20test", "_blank");
+      return;
+    }
+
+    const userMsg = { id: Date.now(), text: option.label, sender: 'user' };
+    setMessages(prev => [...prev, userMsg]);
+    setIsTyping(true);
+    
+    setTimeout(() => {
+      setIsTyping(false);
+      const botMsg = { id: Date.now() + 1, text: option.reply || "Redirecting you now...", sender: 'bot' };
+      setMessages(prev => [...prev, botMsg]);
+    }, 1200);
+  };
 
   const handleSend = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-    const userMessage = { id: Date.now(), text: input, sender: 'user' };
-    setMessages(prev => [...prev, userMessage]);
+
+    const userMsg = { id: Date.now(), text: input, sender: 'user' };
+    setMessages(prev => [...prev, userMsg]);
     setInput("");
+    setIsTyping(true);
+    
     setTimeout(() => {
-      const botResponse = { 
+      setIsTyping(false);
+      setMessages(prev => [...prev, { 
         id: Date.now() + 1, 
-        text: "Our team usually responds within minutes. You can also call us directly at +91 98765 43210.", 
+        text: "I've noted your query. Our consultant will assist you shortly. In the meantime, you can call us at +91 98765 43210.", 
         sender: 'bot' 
-      };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
+      }]);
+    }, 1500);
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-100 font-sans flex flex-col items-end">
-      
-      {/* 1. CHAT WINDOW */}
+    <div 
+      className="fixed z-100 font-sans"
+      style={{ 
+        left: `${position.x}px`, 
+        top: `${position.y}px`,
+        transition: isDragging ? 'none' : 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+      }}
+    >
+      {/* CHAT WINDOW */}
       {isOpen && (
-        <div className="mb-4 w-87.5 h-125 bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 duration-300">
-          <div className="bg-brand-blue p-6 text-white flex justify-between items-center shadow-lg">
-            <div className="flex items-center gap-3">
-              <div className="bg-white p-1.5 rounded-xl h-11 w-11 flex items-center justify-center">
-                <img src={logo} alt="Pravin Lab" className="h-full w-full object-contain" />
-              </div>
-              <div>
-                <h3 className="font-black text-sm uppercase tracking-widest leading-none">Pravin Bot</h3>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></span>
-                  <p className="text-[10px] font-bold text-blue-100 uppercase italic">Active</p>
+        <div className="absolute bottom-20 right-0 w-96 h-137.5 bg-white rounded-4xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-gray-100 flex flex-col overflow-hidden animate-in zoom-in-95 duration-300">
+          {/* HEADER */}
+          <div className="bg-linear-to-r from-brand-blue to-blue-700 p-6 text-white shrink-0">
+            <div className="flex justify-between items-start">
+              <div className="flex gap-4">
+                <div className="relative">
+                  <div className="bg-white p-1 rounded-xl h-12 w-12 flex items-center justify-center shadow-inner">
+                    <img src={logo} alt="Logo" className="h-full w-full object-contain" />
+                  </div>
+                  <span className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-500 border-2 border-white rounded-full"></span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg leading-tight">Pravin Health AI</h3>
+                  <p className="text-blue-100 text-xs opacity-80">Online | Usually replies in 1m</p>
                 </div>
               </div>
+              <button onClick={() => setIsOpen(false)} className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all">
+                <X size={20} />
+              </button>
             </div>
-            <button onClick={() => setIsOpen(false)} className="hover:bg-white/10 p-2 rounded-full transition-colors">
-              <X size={20} />
-            </button>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+          {/* CHAT AREA */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50">
             {messages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                {msg.sender === 'bot' && (
-                  <div className="h-7 w-7 rounded-lg bg-white border border-gray-100 p-1 mr-2 self-end shadow-sm">
-                    <img src={logo} alt="Bot" className="w-full h-full object-contain" />
-                  </div>
-                )}
-                <div className={`max-w-[75%] p-4 rounded-2xl text-sm font-medium shadow-sm ${
+                <div className={`max-w-[85%] p-4 text-sm shadow-sm ${
                   msg.sender === 'user' 
-                  ? 'bg-brand-blue text-white rounded-tr-none' 
-                  : 'bg-white text-gray-700 border border-gray-100 rounded-tl-none'
+                  ? 'bg-brand-blue text-white rounded-2xl rounded-tr-none' 
+                  : 'bg-white text-slate-700 rounded-2xl rounded-tl-none border border-slate-200'
                 }`}>
                   {msg.text}
                 </div>
               </div>
             ))}
+
+            {isTyping && (
+              <div className="flex justify-start">
+                <div className="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none shadow-sm">
+                  <MoreHorizontal className="animate-pulse text-slate-400" size={20} />
+                </div>
+              </div>
+            )}
+
+            {!isTyping && (
+              <div className="grid grid-cols-1 gap-2 pt-2 ml-2">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Select an option</p>
+                {menuOptions.map((opt, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleAction(opt)}
+                    className="flex items-center justify-between bg-white border border-slate-200 p-3 rounded-xl text-xs font-semibold text-slate-600 hover:border-brand-blue hover:text-brand-blue transition-all group shadow-sm"
+                  >
+                    <span className="flex items-center gap-2">
+                      {opt.action === 'whatsapp' ? <Phone size={14} className="text-green-500" /> : <ChevronRight size={14} className="text-brand-blue" />}
+                      {opt.label}
+                    </span>
+                    <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          <form onSubmit={handleSend} className="p-4 bg-white border-t border-gray-100 flex gap-2">
+          <form onSubmit={handleSend} className="p-4 bg-white border-t border-slate-100 flex gap-2 items-center">
             <input 
               type="text" value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              className="flex-1 bg-gray-100 border-none rounded-2xl px-4 py-3 text-sm focus:ring-2 ring-brand-blue/20 outline-none font-medium"
+              placeholder="Ask anything..."
+              className="flex-1 bg-slate-100 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 ring-brand-blue/20 outline-none"
             />
-            <button type="submit" disabled={!input.trim()} className="bg-brand-red text-white p-3 rounded-2xl hover:bg-red-600 active:scale-95 transition-all">
-              <Send size={18} />
+            <button type="submit" disabled={!input.trim()} className="bg-brand-blue text-white p-3 rounded-xl hover:shadow-lg hover:shadow-brand-blue/30 disabled:opacity-50 transition-all">
+              <Send size={20} />
             </button>
           </form>
         </div>
       )}
 
-      {/* 2. PERSISTENT TOOLTIP */}
-      {!isOpen && showNote && (
-        <div className="relative mb-3 animate-bounce-subtle">
-          <div className="bg-white px-5 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 pr-10">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <p className="text-xs font-black text-gray-700 uppercase tracking-widest whitespace-nowrap">
-              Chat with us
-            </p>
-            <button 
-              onClick={(e) => { e.stopPropagation(); setShowNote(false); }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-brand-red transition-colors"
-            >
-              <X size={14} />
-            </button>
-          </div>
-          <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-white border-r border-b border-gray-100 rotate-45"></div>
-        </div>
-      )}
-
-      {/* 3. FLOATING BUTTON */}
+      {/* FLOATING TRIGGER (DRAGGABLE AREA) */}
       <button 
-        onClick={() => { setIsOpen(!isOpen); setShowNote(false); }}
-        className={`p-4 rounded-full shadow-2xl transition-all duration-500 active:scale-90 flex items-center justify-center group ${
-          isOpen ? 'bg-brand-red rotate-90' : 'bg-brand-blue hover:bg-brand-blue-hover'
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+        onClick={toggleChat}
+        className={`w-16 h-16 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all duration-500 flex items-center justify-center group select-none cursor-grab active:cursor-grabbing ${
+          isOpen ? 'bg-brand-red rotate-90' : 'bg-brand-blue hover:scale-110'
         }`}
       >
-        {isOpen ? <X className="text-white" size={28} /> : <MessageCircle className="text-white" size={28} />}
+        {isOpen ? <X className="text-white" size={30} /> : <MessageCircle className="text-white" size={30} />}
       </button>
     </div>
   );
