@@ -1,51 +1,48 @@
-import React, { useState } from 'react';
+// src/pages/Tests.jsx - With API Integration
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import TestCard from '../components/TestCard';
-import { Search } from 'lucide-react';
+import { Search, Loader2 } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Tests = () => {
-  // 1. State for Filtering
+  const [tests, setTests] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Tests");
+  const [categories, setCategories] = useState(["All Tests"]);
 
-  const categories = [
-    "All Tests",
-    "Blood Test",
-    "Diabetes",
-    "Thyroid",
-    "Vitamin",
-    "Organ Health", // Liver, Kidney, Cardiac
-    "Screening"
-  ];
+  // Fetch tests from API
+  useEffect(() => {
+    const fetchTests = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/tests`);
+        const testsData = res.data.data || [];
+        setTests(testsData);
+        
+        // Extract unique categories
+        const uniqueCategories = [...new Set(testsData.map(t => t.category).filter(Boolean))];
+        setCategories(["All Tests", ...uniqueCategories]);
+      } catch (error) {
+        console.error('Error fetching tests:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTests();
+  }, []);
 
-  const allTests = [
-    { name: "Complete Blood Count (CBC)", oldPrice: "899", newPrice: "499", parameters: "60+ Parameters", time: "Reports in 24 Hours", category: "Blood Test" },
-    { name: "Thyroid Profile (Total T3, T4, TSH)", oldPrice: "999", newPrice: "699", parameters: "3 Parameters", time: "Reports in 24 Hours", category: "Thyroid", isPopular: true },
-    { name: "Lipid Profile (Cholesterol)", oldPrice: "1200", newPrice: "899", parameters: "8 Parameters", time: "Reports in 12 Hours", category: "Organ Health" },
-    { name: "Liver Function Test (LFT)", oldPrice: "1500", newPrice: "1100", parameters: "11 Parameters", time: "Reports in 24 Hours", category: "Organ Health" },
-    { name: "Kidney Function Test (KFT)", oldPrice: "1400", newPrice: "999", parameters: "9 Parameters", time: "Reports in 24 Hours", category: "Organ Health" },
-    { name: "Diabetes Screening (HbA1c + Sugar)", oldPrice: "850", newPrice: "649", parameters: "2 Parameters", time: "Reports in 12 Hours", category: "Diabetes", isPopular: true },
-    { name: "Vitamin B12 Checkup", oldPrice: "1100", newPrice: "799", parameters: "1 Parameter", time: "Reports in 24 Hours", category: "Vitamin" },
-    { name: "Vitamin D (25-Hydroxy)", oldPrice: "1600", newPrice: "1249", parameters: "1 Parameter", time: "Reports in 24 Hours", category: "Vitamin" },
-    { name: "Urine Routine & Microscopy", oldPrice: "350", newPrice: "199", parameters: "20+ Parameters", time: "Reports in 12 Hours", category: "Screening" },
-    { name: "Iron Studies Profile", oldPrice: "1200", newPrice: "899", parameters: "4 Parameters", time: "Reports in 24 Hours", category: "Blood Test" },
-    { name: "Cardiac Risk Markers", oldPrice: "2400", newPrice: "1799", parameters: "5 Parameters", time: "Reports in 48 Hours", category: "Organ Health" },
-    { name: "Electrolytes Profile", oldPrice: "900", newPrice: "599", parameters: "3 Parameters", time: "Reports in 12 Hours", category: "Organ Health" },
-    { name: "Fever Profile (Basic)", oldPrice: "1800", newPrice: "1299", parameters: "15+ Parameters", time: "Reports in 24 Hours", category: "Screening" },
-    { name: "Double Marker Screening", oldPrice: "3500", newPrice: "2600", parameters: "2 Parameters", time: "Reports in 48 Hours", category: "Screening" },
-    { name: "D-Dimer Test", oldPrice: "1400", newPrice: "1099", parameters: "1 Parameter", time: "Reports in 12 Hours", category: "Blood Test" },
-    { name: "Calcium Checkup", oldPrice: "400", newPrice: "249", parameters: "1 Parameter", time: "Reports in 24 Hours", category: "Blood Test" }
-  ];
-
-  // 2. Filter Logic
-  const filteredTests = allTests.filter((test) => {
+  // Filter Logic
+  const filteredTests = tests.filter((test) => {
     const matchesCategory = selectedCategory === "All Tests" || test.category === selectedCategory;
     const matchesSearch = test.name.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   return (
-    <div className="min-h-screen bg-[#FBFBFB] py-16">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="min-h-screen bg-[#FBFBFB] py-16 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header + Search Bar */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -92,10 +89,23 @@ const Tests = () => {
 
           {/* RIGHT SIDE: Test Grid */}
           <div className="flex-1">
-            {filteredTests.length > 0 ? (
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <Loader2 className="w-8 h-8 animate-spin text-brand-blue" />
+              </div>
+            ) : filteredTests.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center">
-                {filteredTests.map((test, index) => (
-                  <TestCard key={index} {...test} />
+                {filteredTests.map((test) => (
+                  <TestCard 
+                    key={test._id}
+                    id={test._id}
+                    name={test.name}
+                    oldPrice={test.price?.toString()}
+                    newPrice={test.discountPrice?.toString() || test.price?.toString()}
+                    parameters={test.parameters || "Multiple Parameters"}
+                    time={test.reportTime || "Reports in 24 Hours"}
+                    isPopular={test.isPopular}
+                  />
                 ))}
               </div>
             ) : (

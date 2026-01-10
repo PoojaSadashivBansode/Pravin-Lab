@@ -16,11 +16,11 @@ const About = () => {
   ];
 
   return (
-    <div className="font-sans text-text-primary">
+    <div className="font-sans text-text-primary overflow-x-hidden">
       {/* 1. HERO SECTION - Matching Home Page Header Style */}
-      <section className="bg-[#FBFBFB] py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-1 space-y-6">
+      <section className="bg-[#FBFBFB] py-12 sm:py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          <div className="flex-1 space-y-4 sm:space-y-6 text-center lg:text-left">
             <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
               A Legacy of <br />
               <span className="text-brand-red uppercase">Accuracy & Trust</span>

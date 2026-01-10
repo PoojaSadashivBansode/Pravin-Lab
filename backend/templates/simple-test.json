@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Simple Test 1",
+        "description": "This is a simple test to verify bulk import works",
+        "price": 100,
+        "discountPrice": 50,
+        "category": "Test Category",
+        "sampleType": "Blood",
+        "reportTime": "Same Day",
+        "parameters": [
+            "Parameter 1",
+            "Parameter 2"
+        ],
+        "preparationInstructions": "No special preparation",
+        "isActive": true
+    },
+    {
+        "name": "Simple Test 2",
+        "description": "Another simple test",
+        "price": 200,
+        "category": "Test Category",
+        "sampleType": "Urine",
+        "reportTime": "24 Hours",
+        "isActive": true
+    }
+]

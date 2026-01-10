@@ -1,0 +1,339 @@
+[
+  {
+    "name": "Complete Blood Count (CBC)",
+    "description": "A complete blood count test measures several components of blood including red blood cells, white blood cells, hemoglobin, hematocrit, and platelets. Used to detect a wide range of disorders.",
+    "price": 500,
+    "discountPrice": 299,
+    "category": "Hematology",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Hemoglobin",
+      "Total RBC Count",
+      "Total WBC Count",
+      "Platelet Count",
+      "MCV",
+      "MCH",
+      "MCHC",
+      "Neutrophils",
+      "Lymphocytes",
+      "Monocytes",
+      "Eosinophils",
+      "Basophils"
+    ],
+    "preparationInstructions": "No fasting required. Normal diet and water intake is allowed.",
+    "isActive": true
+  },
+  {
+    "name": "Lipid Profile",
+    "description": "Lipid profile test measures the amount of cholesterol and triglycerides in the blood. It helps assess cardiovascular health and risk of heart disease.",
+    "price": 800,
+    "discountPrice": 499,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "Total Cholesterol",
+      "HDL Cholesterol",
+      "LDL Cholesterol",
+      "VLDL Cholesterol",
+      "Triglycerides",
+      "Total Cholesterol/HDL Ratio",
+      "LDL/HDL Ratio"
+    ],
+    "preparationInstructions": "Fasting for 10-12 hours is required. Only water is allowed during fasting period.",
+    "isActive": true
+  },
+  {
+    "name": "Thyroid Profile (T3, T4, TSH)",
+    "description": "Thyroid function test measures thyroid hormone levels to evaluate thyroid gland function and diagnose thyroid disorders like hypothyroidism or hyperthyroidism.",
+    "price": 900,
+    "discountPrice": 599,
+    "category": "Endocrinology",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "T3 (Triiodothyronine)",
+      "T4 (Thyroxine)",
+      "TSH (Thyroid Stimulating Hormone)"
+    ],
+    "preparationInstructions": "No fasting required. Can be done at any time of the day.",
+    "isActive": true
+  },
+  {
+    "name": "Blood Sugar Fasting (FBS)",
+    "description": "Measures blood glucose level after an overnight fast. Used to diagnose diabetes and prediabetes conditions.",
+    "price": 150,
+    "discountPrice": 99,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Fasting Blood Glucose"
+    ],
+    "preparationInstructions": "Fasting for 10-12 hours is mandatory. Only water is allowed.",
+    "isActive": true
+  },
+  {
+    "name": "Blood Sugar PP (Postprandial)",
+    "description": "Measures blood glucose level 2 hours after a meal. Helps monitor diabetes control and treatment effectiveness.",
+    "price": 150,
+    "discountPrice": 99,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Postprandial Blood Glucose"
+    ],
+    "preparationInstructions": "Sample should be collected exactly 2 hours after starting your meal.",
+    "isActive": true
+  },
+  {
+    "name": "HbA1c (Glycosylated Hemoglobin)",
+    "description": "Reflects average blood sugar levels over the past 2-3 months. Essential for diabetes diagnosis and monitoring.",
+    "price": 600,
+    "discountPrice": 399,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "HbA1c Percentage"
+    ],
+    "preparationInstructions": "No fasting required. Can be done at any time.",
+    "isActive": true
+  },
+  {
+    "name": "Liver Function Test (LFT)",
+    "description": "Evaluates liver health by measuring enzymes, proteins, and bilirubin levels. Helps detect liver diseases and damage.",
+    "price": 700,
+    "discountPrice": 449,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "SGOT (AST)",
+      "SGPT (ALT)",
+      "Alkaline Phosphatase",
+      "Total Bilirubin",
+      "Direct Bilirubin",
+      "Indirect Bilirubin",
+      "Total Protein",
+      "Albumin",
+      "Globulin",
+      "A/G Ratio"
+    ],
+    "preparationInstructions": "Fasting for 8-10 hours is recommended.",
+    "isActive": true
+  },
+  {
+    "name": "Kidney Function Test (KFT)",
+    "description": "Assesses kidney function by measuring waste products and electrolytes in blood. Helps detect kidney diseases.",
+    "price": 650,
+    "discountPrice": 399,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "Blood Urea",
+      "Serum Creatinine",
+      "Uric Acid",
+      "Sodium",
+      "Potassium",
+      "Chloride",
+      "Calcium",
+      "Phosphorus"
+    ],
+    "preparationInstructions": "No fasting required. Normal water intake is allowed.",
+    "isActive": true
+  },
+  {
+    "name": "Vitamin D (25-OH)",
+    "description": "Measures vitamin D levels in blood. Vitamin D deficiency can lead to bone problems, fatigue, and weakened immunity.",
+    "price": 1200,
+    "discountPrice": 799,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "48 Hours",
+    "parameters": [
+      "25-Hydroxyvitamin D (Total)"
+    ],
+    "preparationInstructions": "No special preparation required.",
+    "isActive": true
+  },
+  {
+    "name": "Vitamin B12",
+    "description": "Measures vitamin B12 levels. Deficiency can cause anemia, neurological problems, and fatigue.",
+    "price": 800,
+    "discountPrice": 549,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "48 Hours",
+    "parameters": [
+      "Vitamin B12 (Cobalamin)"
+    ],
+    "preparationInstructions": "No fasting required.",
+    "isActive": true
+  },
+  {
+    "name": "Iron Studies",
+    "description": "Comprehensive test to assess iron levels, iron-binding capacity, and ferritin. Helps diagnose anemia and iron disorders.",
+    "price": 1000,
+    "discountPrice": 699,
+    "category": "Hematology",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "Serum Iron",
+      "TIBC (Total Iron Binding Capacity)",
+      "Transferrin Saturation",
+      "Serum Ferritin"
+    ],
+    "preparationInstructions": "Fasting for 8-10 hours recommended. Morning sample preferred.",
+    "isActive": true
+  },
+  {
+    "name": "Urine Routine & Microscopy",
+    "description": "Examines physical, chemical, and microscopic properties of urine. Detects urinary tract infections, kidney diseases, and diabetes.",
+    "price": 300,
+    "discountPrice": 199,
+    "category": "Clinical Pathology",
+    "sampleType": "Urine",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Color",
+      "Appearance",
+      "pH",
+      "Specific Gravity",
+      "Protein",
+      "Glucose",
+      "Ketones",
+      "Blood",
+      "Bilirubin",
+      "Urobilinogen",
+      "WBC",
+      "RBC",
+      "Epithelial Cells",
+      "Casts",
+      "Crystals",
+      "Bacteria"
+    ],
+    "preparationInstructions": "Collect first morning urine sample in a clean, sterile container.",
+    "isActive": true
+  },
+  {
+    "name": "Dengue NS1 Antigen",
+    "description": "Early detection test for dengue fever. Detects dengue virus protein in the first few days of infection.",
+    "price": 800,
+    "discountPrice": 599,
+    "category": "Serology",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Dengue NS1 Antigen"
+    ],
+    "preparationInstructions": "No fasting required. Most accurate in first 5 days of fever.",
+    "isActive": true
+  },
+  {
+    "name": "Dengue IgG & IgM Antibodies",
+    "description": "Detects dengue antibodies to determine current or past dengue infection.",
+    "price": 900,
+    "discountPrice": 649,
+    "category": "Serology",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "Dengue IgG Antibody",
+      "Dengue IgM Antibody"
+    ],
+    "preparationInstructions": "No fasting required. Most effective after 5 days of fever.",
+    "isActive": true
+  },
+  {
+    "name": "Malaria Rapid Test (MP)",
+    "description": "Rapid detection of malaria parasites in blood. Quick screening test for malaria diagnosis.",
+    "price": 400,
+    "discountPrice": 299,
+    "category": "Microbiology",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Malaria Parasite Detection"
+    ],
+    "preparationInstructions": "No special preparation required.",
+    "isActive": true
+  },
+  {
+    "name": "COVID-19 RT-PCR",
+    "description": "Gold standard test for COVID-19 diagnosis. Detects viral RNA from nasopharyngeal swab.",
+    "price": 1500,
+    "discountPrice": 999,
+    "category": "Molecular Biology",
+    "sampleType": "Nasopharyngeal Swab",
+    "reportTime": "24-48 Hours",
+    "parameters": [
+      "SARS-CoV-2 RNA Detection"
+    ],
+    "preparationInstructions": "No eating, drinking, or smoking 30 minutes before sample collection.",
+    "isActive": true
+  },
+  {
+    "name": "Prostate Specific Antigen (PSA)",
+    "description": "Screening test for prostate health in men. Elevated levels may indicate prostate cancer or enlargement.",
+    "price": 900,
+    "discountPrice": 649,
+    "category": "Tumor Markers",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "Total PSA",
+      "Free PSA"
+    ],
+    "preparationInstructions": "Avoid sexual activity 48 hours before test. No vigorous exercise.",
+    "isActive": true
+  },
+  {
+    "name": "Electrolytes (Na, K, Cl)",
+    "description": "Measures essential electrolytes in blood. Important for kidney function and fluid balance assessment.",
+    "price": 500,
+    "discountPrice": 349,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "Sodium (Na)",
+      "Potassium (K)",
+      "Chloride (Cl)"
+    ],
+    "preparationInstructions": "No fasting required.",
+    "isActive": true
+  },
+  {
+    "name": "C-Reactive Protein (CRP)",
+    "description": "Measures inflammation marker in the body. Elevated in infections, autoimmune diseases, and inflammatory conditions.",
+    "price": 600,
+    "discountPrice": 399,
+    "category": "Biochemistry",
+    "sampleType": "Blood",
+    "reportTime": "24 Hours",
+    "parameters": [
+      "C-Reactive Protein (CRP)"
+    ],
+    "preparationInstructions": "No special preparation required.",
+    "isActive": true
+  },
+  {
+    "name": "ESR (Erythrocyte Sedimentation Rate)",
+    "description": "Measures rate at which red blood cells settle. Indicates inflammation and infection in the body.",
+    "price": 200,
+    "discountPrice": 149,
+    "category": "Hematology",
+    "sampleType": "Blood",
+    "reportTime": "Same Day",
+    "parameters": [
+      "ESR"
+    ],
+    "preparationInstructions": "No fasting required.",
+    "isActive": true
+  }
+]

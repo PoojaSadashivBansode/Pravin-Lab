@@ -1,16 +1,31 @@
 import React from "react";
 import { Check, Droplets } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const TestCard = ({ name, oldPrice, newPrice, parameters, time }) => {
+const TestCard = ({ id, name, oldPrice, newPrice, parameters, time }) => {
+  const navigate = useNavigate();
+  
   const numericOldPrice = parseInt(oldPrice);
   const numericNewPrice = parseInt(newPrice);
   const discountPercent = numericOldPrice > numericNewPrice 
     ? Math.round(((numericOldPrice - numericNewPrice) / numericOldPrice) * 100) 
     : 0;
 
+  const handleViewDetails = () => {
+    navigate(`/tests/${id}`);
+  };
+
+  const handleBookNow = (e) => {
+    e.stopPropagation(); // Prevent card click when clicking button
+    navigate('/login'); // Redirect to login/booking page
+  };
+
   return (
     /* max-w-[280px] is ideal for 4-column layouts to ensure enough gutter space */
-    <div className="relative bg-white rounded-3xl shadow-sm border border-gray-200 w-full max-w-70 p-5 flex flex-col font-sans transition-all hover:shadow-xl hover:-translate-y-1">
+    <div 
+      onClick={handleViewDetails}
+      className="relative bg-white rounded-3xl shadow-sm border border-gray-200 w-full max-w-70 p-5 flex flex-col font-sans transition-all hover:shadow-xl hover:-translate-y-1 cursor-pointer"
+    >
       
       {/* Popular Tag */}
       <div className="flex justify-between items-start mb-3">
@@ -60,7 +75,10 @@ const TestCard = ({ name, oldPrice, newPrice, parameters, time }) => {
       </div>
 
       {/* CTA Button */}
-      <button className="btn-primary w-full py-2.5 rounded-xl text-md font-bold transition-all hover:opacity-90 active:bg-[#BFBFBF] active:scale-95">
+      <button 
+        onClick={handleBookNow}
+        className="btn-primary w-full py-2.5 rounded-xl text-md font-bold transition-all hover:opacity-90 active:bg-[#BFBFBF] active:scale-95"
+      >
         Book Now
       </button>
     </div>

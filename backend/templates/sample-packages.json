@@ -1,0 +1,229 @@
+[
+    {
+        "name": "Full Body Health Checkup",
+        "description": "Comprehensive health screening package covering all major body systems. Includes 60+ parameters for complete health assessment. Ideal for annual health checkups and preventive care.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Lipid Profile",
+            "Thyroid Profile (T3, T4, TSH)",
+            "Blood Sugar Fasting (FBS)",
+            "HbA1c (Glycosylated Hemoglobin)",
+            "Liver Function Test (LFT)",
+            "Kidney Function Test (KFT)",
+            "Vitamin D (25-OH)",
+            "Vitamin B12",
+            "Urine Routine & Microscopy",
+            "ESR (Erythrocyte Sedimentation Rate)"
+        ],
+        "price": 7500,
+        "discountPrice": 3999,
+        "category": "Full Body",
+        "isPopular": true,
+        "isActive": true
+    },
+    {
+        "name": "Diabetes Care Package",
+        "description": "Complete diabetes screening and monitoring package. Includes all essential tests for diabetes diagnosis, management, and complication prevention.",
+        "tests": [
+            "Blood Sugar Fasting (FBS)",
+            "Blood Sugar PP (Postprandial)",
+            "HbA1c (Glycosylated Hemoglobin)",
+            "Kidney Function Test (KFT)",
+            "Lipid Profile",
+            "Urine Routine & Microscopy"
+        ],
+        "price": 3200,
+        "discountPrice": 1999,
+        "category": "Diabetes",
+        "isPopular": true,
+        "isActive": true
+    },
+    {
+        "name": "Heart Health Package",
+        "description": "Cardiovascular health assessment package. Evaluates heart disease risk factors and overall cardiac health status.",
+        "tests": [
+            "Lipid Profile",
+            "Complete Blood Count (CBC)",
+            "Blood Sugar Fasting (FBS)",
+            "HbA1c (Glycosylated Hemoglobin)",
+            "Kidney Function Test (KFT)",
+            "Electrolytes (Na, K, Cl)",
+            "C-Reactive Protein (CRP)",
+            "ESR (Erythrocyte Sedimentation Rate)"
+        ],
+        "price": 4500,
+        "discountPrice": 2799,
+        "category": "Heart",
+        "isPopular": true,
+        "isActive": true
+    },
+    {
+        "name": "Thyroid Profile Basic",
+        "description": "Essential thyroid function tests to diagnose thyroid disorders. Cost-effective package for thyroid health screening.",
+        "tests": [
+            "Thyroid Profile (T3, T4, TSH)"
+        ],
+        "price": 900,
+        "discountPrice": 599,
+        "category": "Thyroid",
+        "isPopular": false,
+        "isActive": true
+    },
+    {
+        "name": "Liver & Kidney Function Package",
+        "description": "Combined assessment of liver and kidney health. Important for detecting organ dysfunction and monitoring overall health.",
+        "tests": [
+            "Liver Function Test (LFT)",
+            "Kidney Function Test (KFT)",
+            "Electrolytes (Na, K, Cl)",
+            "Urine Routine & Microscopy"
+        ],
+        "price": 2200,
+        "discountPrice": 1499,
+        "category": "Organ Health",
+        "isPopular": false,
+        "isActive": true
+    },
+    {
+        "name": "Anemia Profile",
+        "description": "Comprehensive anemia investigation package. Identifies type and cause of anemia with detailed blood analysis.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Iron Studies",
+            "Vitamin B12",
+            "ESR (Erythrocyte Sedimentation Rate)"
+        ],
+        "price": 2700,
+        "discountPrice": 1899,
+        "category": "Hematology",
+        "isPopular": false,
+        "isActive": true
+    },
+    {
+        "name": "Fever Panel - Viral",
+        "description": "Comprehensive fever investigation for viral infections. Includes dengue and other common viral markers.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Dengue NS1 Antigen",
+            "Dengue IgG & IgM Antibodies",
+            "Malaria Rapid Test (MP)",
+            "ESR (Erythrocyte Sedimentation Rate)",
+            "C-Reactive Protein (CRP)"
+        ],
+        "price": 3500,
+        "discountPrice": 2299,
+        "category": "Infection",
+        "isPopular": false,
+        "isActive": true
+    },
+    {
+        "name": "Women's Health Package",
+        "description": "Specialized health package for women covering hormonal health, bone health, and general wellness parameters.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Thyroid Profile (T3, T4, TSH)",
+            "Blood Sugar Fasting (FBS)",
+            "Vitamin D (25-OH)",
+            "Vitamin B12",
+            "Iron Studies",
+            "Urine Routine & Microscopy",
+            "Lipid Profile"
+        ],
+        "price": 5500,
+        "discountPrice": 3499,
+        "category": "Women's Health",
+        "isPopular": true,
+        "isActive": true
+    },
+    {
+        "name": "Men's Health Package",
+        "description": "Complete health checkup designed for men. Includes prostate screening and cardiovascular risk assessment.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Lipid Profile",
+            "Thyroid Profile (T3, T4, TSH)",
+            "Blood Sugar Fasting (FBS)",
+            "Liver Function Test (LFT)",
+            "Kidney Function Test (KFT)",
+            "Prostate Specific Antigen (PSA)",
+            "Vitamin D (25-OH)",
+            "Urine Routine & Microscopy"
+        ],
+        "price": 6500,
+        "discountPrice": 3999,
+        "category": "Men's Health",
+        "isPopular": true,
+        "isActive": true
+    },
+    {
+        "name": "Senior Citizen Package",
+        "description": "Comprehensive health package designed for elderly persons (60+ years). Covers all age-related health concerns with extensive screening.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Lipid Profile",
+            "Thyroid Profile (T3, T4, TSH)",
+            "Blood Sugar Fasting (FBS)",
+            "HbA1c (Glycosylated Hemoglobin)",
+            "Liver Function Test (LFT)",
+            "Kidney Function Test (KFT)",
+            "Vitamin D (25-OH)",
+            "Vitamin B12",
+            "Iron Studies",
+            "Urine Routine & Microscopy",
+            "Electrolytes (Na, K, Cl)",
+            "C-Reactive Protein (CRP)"
+        ],
+        "price": 8500,
+        "discountPrice": 4999,
+        "category": "Senior Care",
+        "isPopular": true,
+        "isActive": true
+    },
+    {
+        "name": "Basic Health Checkup",
+        "description": "Essential health screening package for routine checkups. Covers fundamental health parameters at an affordable price.",
+        "tests": [
+            "Complete Blood Count (CBC)",
+            "Blood Sugar Fasting (FBS)",
+            "Lipid Profile",
+            "Liver Function Test (LFT)",
+            "Kidney Function Test (KFT)",
+            "Urine Routine & Microscopy"
+        ],
+        "price": 3000,
+        "discountPrice": 1799,
+        "category": "Basic",
+        "isPopular": false,
+        "isActive": true
+    },
+    {
+        "name": "COVID-19 Safety Package",
+        "description": "Complete COVID-19 screening and immunity package. Includes RT-PCR test and related health parameters.",
+        "tests": [
+            "COVID-19 RT-PCR",
+            "Complete Blood Count (CBC)",
+            "C-Reactive Protein (CRP)",
+            "Vitamin D (25-OH)"
+        ],
+        "price": 3200,
+        "discountPrice": 2299,
+        "category": "COVID",
+        "isPopular": false,
+        "isActive": true
+    },
+    {
+        "name": "Vitamin Deficiency Package",
+        "description": "Comprehensive vitamin screening to detect common deficiencies. Includes Vitamin D and B12 with complete blood analysis.",
+        "tests": [
+            "Vitamin D (25-OH)",
+            "Vitamin B12",
+            "Complete Blood Count (CBC)",
+            "Iron Studies"
+        ],
+        "price": 2800,
+        "discountPrice": 1999,
+        "category": "Vitamins",
+        "isPopular": false,
+        "isActive": true
+    }
+]

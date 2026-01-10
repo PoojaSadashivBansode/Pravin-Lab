@@ -1,12 +1,26 @@
 // src/components/PackageCard.jsx
 import React from "react";
 import { Check, ShieldCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const PackageCard = ({ name, oldPrice, newPrice, parameters, includes, gender }) => {
+const PackageCard = ({ id, name, oldPrice, newPrice, parameters, includes, gender }) => {
+  const navigate = useNavigate();
   const discount = Math.round(((oldPrice - newPrice) / oldPrice) * 100);
 
+  const handleViewDetails = () => {
+    navigate(`/packages/${id}`);
+  };
+
+  const handleBookNow = (e) => {
+    e.stopPropagation();
+    navigate('/login');
+  };
+
   return (
-    <div className="bg-white rounded-3xl border border-gray-100 shadow-md p-6 flex flex-col hover:shadow-xl transition-all duration-300 border-t-4 border-t-brand-blue">
+    <div 
+      onClick={handleViewDetails}
+      className="bg-white rounded-3xl border border-gray-100 shadow-md p-6 flex flex-col hover:shadow-xl transition-all duration-300 border-t-4 border-t-brand-blue cursor-pointer"
+    >
       {/* Top Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="bg-blue-50 text-brand-blue p-2 rounded-lg">
@@ -41,7 +55,10 @@ const PackageCard = ({ name, oldPrice, newPrice, parameters, includes, gender })
           <span className="text-3xl font-black text-brand-red">₹{newPrice}</span>
           <span className="text-gray-400 line-through text-sm">₹{oldPrice}</span>
         </div>
-        <button className="btn-primary w-full py-3 rounded-2xl shadow-lg shadow-brand-blue/20">
+        <button 
+          onClick={handleBookNow}
+          className="btn-primary w-full py-3 rounded-2xl shadow-lg shadow-brand-blue/20"
+        >
           Book Package
         </button>
       </div>

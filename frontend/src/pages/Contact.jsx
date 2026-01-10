@@ -3,11 +3,11 @@ import { Mail, Phone, MapPin, Clock, Send, ShieldCheck } from 'lucide-react';
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-[#FBFBFB] font-sans text-text-primary selection:bg-brand-blue/10">
+    <div className="min-h-screen bg-[#FBFBFB] font-sans text-text-primary selection:bg-brand-blue/10 overflow-x-hidden">
       
       {/* 1. LIGHTWEIGHT HEADER */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <section className="py-12 sm:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
             <ShieldCheck size={14} /> Secure & Confidential
           </div>

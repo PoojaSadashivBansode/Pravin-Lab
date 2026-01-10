@@ -1,49 +1,35 @@
-// src/pages/Packages.jsx
-import React from 'react';
+// src/pages/Packages.jsx - With API Integration
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import PackageCard from '../components/PackageCard';
+import { Loader2 } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Packages = () => {
-  const healthPackages = [
-    {
-      name: "Basic Wellness Package",
-      oldPrice: "1999",
-      newPrice: "999",
-      parameters: "35",
-      gender: "For All Genders",
-      includes: ["CBC", "Urine Routine", "Blood Sugar", "Cholesterol"]
-    },
-    {
-      name: "Executive Full Body Checkup",
-      oldPrice: "4500",
-      newPrice: "2499",
-      parameters: "72",
-      gender: "Recommended 30+ Age",
-      includes: ["Liver Profile", "Kidney Profile", "Thyroid", "Vitamin D & B12", "HbA1c"]
-    },
-    {
-      name: "Senior Citizen Advanced",
-      oldPrice: "6000",
-      newPrice: "3499",
-      parameters: "85",
-      gender: "Male / Female specific",
-      includes: ["Cardiac Markers", "Iron Studies", "Arthritis Screening", "Pancreas Map"]
-    },
-    {
-      name: "Women Health Special",
-      oldPrice: "3500",
-      newPrice: "1899",
-      parameters: "50",
-      gender: "Exclusively for Women",
-      includes: ["Hormone Profile", "Anaemia Screening", "Bone Health", "Vitamin Profile"]
-    }
-  ];
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/packages`);
+        setPackages(res.data.data || []);
+      } catch (error) {
+        console.error('Error fetching packages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPackages();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#FBFBFB]">
+    <div className="min-h-screen bg-[#FBFBFB] overflow-x-hidden">
       {/* Header Section */}
-      <div className="bg-white py-16 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary mb-4">
+      <div className="bg-white py-12 sm:py-16 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary mb-4">
             Comprehensive <span className="text-brand-red">Health Packages</span>
           </h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
@@ -55,11 +41,31 @@ const Packages = () => {
 
       {/* Packages Grid */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {healthPackages.map((pkg, index) => (
-            <PackageCard key={index} {...pkg} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-brand-blue" />
+          </div>
+        ) : packages.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {packages.map((pkg) => (
+              <PackageCard 
+                key={pkg._id}
+                id={pkg._id}
+                name={pkg.name}
+                oldPrice={pkg.price?.toString()}
+                newPrice={pkg.discountPrice?.toString() || pkg.price?.toString()}
+                parameters={pkg.tests?.length?.toString() || "Multiple"}
+                gender={pkg.category || "For All"}
+                includes={pkg.tests?.slice(0, 5).map(t => t.name || t) || []}
+                isPopular={pkg.isPopular}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-300">
+            <p className="text-gray-500 text-lg">No packages available yet.</p>
+          </div>
+        )}
 
         {/* Home Sample Collection Banner */}
         <div className="mt-20 bg-brand-blue rounded-[40px] p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between">
